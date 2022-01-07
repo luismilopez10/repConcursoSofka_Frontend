@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_concurso_app/model/mdlCategoria.dart';
 import 'package:flutter_concurso_app/model/mdlOpcion.dart';
 import 'package:flutter_concurso_app/model/mdlPregunta.dart';
-import 'package:flutter_concurso_app/services/srvConsultarCategoria.dart';
 import 'package:get/get.dart';
 
-class ctrAumentarNivel extends GetxController{
+class ctrAumentarNivel{
 
   // Se crea una instancia de tipo Singleton
   static final ctrAumentarNivel instancia = ctrAumentarNivel._();
@@ -34,13 +33,18 @@ class ctrAumentarNivel extends GetxController{
     }
     else if (ctrAumentarNivel.instancia.intNivelActual.value == 5 && ctrAumentarNivel.instancia.strOpcionElegida.value == ctrAumentarNivel.instancia.objMdlPreguntaFiltro.strRespuesta) {
       // Respuesta correcta y es la última ronda
-      Get.toNamed("/PagInicio");
+      ctrAumentarNivel.instancia.intPuntajeActual.value += ctrAumentarNivel.instancia.objMdlCategoriaFiltro.intPremio;
+      Get.toNamed('pagFormGuardarPuntaje');
+      Get.snackbar("¡Ganaste!", '''
+      ¡Que gran matemático! 
+      Ingresa tu Nick para guardar tu puntaje.''');
     }
     else if (ctrAumentarNivel.instancia.strOpcionElegida.value != ctrAumentarNivel.instancia.objMdlPreguntaFiltro.strRespuesta) {
       // Respuesta incorrecta
       ctrAumentarNivel.instancia.intNivelActual.value = 1;
       ctrAumentarNivel.instancia.intPuntajeActual.value = 0;
-      Get.toNamed("/PagInicio");
+      Get.toNamed('pagInicio');
+      Get.snackbar("Respuesta Incorrecta", "No fuiste matemático =(");
     }
     //TODO consultar si la opción elegida es la correcta y si sí, subir el nivel
   }

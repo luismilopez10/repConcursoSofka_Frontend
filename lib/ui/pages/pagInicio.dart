@@ -12,7 +12,6 @@ class pagInicio extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(image: AssetImage("assets/backgroundImage-Main3.gif"), fit: BoxFit.cover),
         ),
-        // padding: EdgeInsets.only(top: 550.0, left: 20.0, bottom: 20.0, right: 20.0),
         child: Column(
           children: [
             Expanded(

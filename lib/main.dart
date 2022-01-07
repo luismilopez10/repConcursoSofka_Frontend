@@ -3,6 +3,7 @@ import 'package:flutter_concurso_app/services/srvConsultarCategoria.dart';
 import 'package:flutter_concurso_app/services/srvConsultarOpcion.dart';
 import 'package:flutter_concurso_app/services/srvConsultarPregunta.dart';
 import 'package:flutter_concurso_app/ui/pages/pagConfiguracion.dart';
+import 'package:flutter_concurso_app/ui/pages/pagFormGuardarPuntaje.dart';
 import 'package:flutter_concurso_app/ui/pages/pagInicio.dart';
 import 'package:flutter_concurso_app/ui/pages/pagJuego.dart';
 import 'package:flutter_concurso_app/ui/pages/pagPuntajes.dart';
@@ -33,6 +34,7 @@ class _MyAppState extends State<MyApp> {
         routes: {
           'pagInicio': (context) => pagInicio(),
           'pagJuego': (context) => pagJuego(),
+          'pagFormGuardarPuntaje': (context) => pagFormGuardarPuntaje(),
           'pagPuntajes': (context) => pagPuntajes(),
           'pagConfiguracion': (context) => pagConfiguracion(),
         },
