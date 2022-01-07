@@ -4,8 +4,6 @@ import 'package:flutter_concurso_app/ui/widgets/wdgPagInicioBoton.dart';
 
 class pagInicio extends StatelessWidget {
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -29,6 +29,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   http: ^0.13.1 # Para la comunicación con APIs
+  get: ^3.12.1 # Para la comunicación sin necesidad de un contexto (la versión ^3.12.1 corre sin errores)
 
 dev_dependencies:
   flutter_test:

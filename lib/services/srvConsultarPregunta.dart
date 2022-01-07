@@ -1,24 +1,23 @@
 import 'dart:convert';
 
 import 'package:flutter_concurso_app/controller/ctrAumentarNivel.dart';
-import 'package:flutter_concurso_app/model/mdlCategoria.dart';
+import 'package:flutter_concurso_app/model/mdlPregunta.dart';
 import 'package:flutter_concurso_app/services/srvInternetConnectionCheck.dart';
 import 'package:http/http.dart' as http;
 
-
-Future<String> fncConsultarCategoria() async{
+Future<String> fncConsultarPregunta() async{
 
   ctrAumentarNivel objCtrAumentarNivel = ctrAumentarNivel.instancia;
   var response;
 
   if (await srvInternetConnectionCheck()){
-    response = await http.get(Uri.parse("https://pryconcursowebapi.azurewebsites.net/api/Categoria/fncConsultarCategoria"));
+    response = await http.get(Uri.parse("https://pryconcursowebapi.azurewebsites.net/api/Pregunta/fncConsultarPregunta"));
   }
 
   if (response.statusCode == 200) {
     List<dynamic> NewsJson = jsonDecode(response.body);
     NewsJson.forEach((element){
-      objCtrAumentarNivel.lstMdlCategoria.add(mdlCategoria.fromJson(element));
+      objCtrAumentarNivel.lstMdlPregunta.add(mdlPregunta.fromJson(element));
     });
     return response.body;
   } else {

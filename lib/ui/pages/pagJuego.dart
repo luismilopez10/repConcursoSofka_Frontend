@@ -1,6 +1,15 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'dart:math';
+import 'package:flutter_concurso_app/model/mdlCategoria.dart';
+import 'package:flutter_concurso_app/model/mdlPregunta.dart';
+import 'package:flutter_concurso_app/model/mdlOpcion.dart';
 import 'package:flutter_concurso_app/controller/ctrAumentarNivel.dart';
+import 'package:flutter_concurso_app/services/srvConsultarJugador.dart';
+import 'package:flutter_concurso_app/services/srvConsultarOpcion.dart';
+import 'package:flutter_concurso_app/services/srvConsultarPregunta.dart';
 import 'package:flutter_concurso_app/ui/widgets/wdgOpcionesBoton.dart';
+import 'package:flutter_concurso_app/services/srvConsultarCategoria.dart';
 
 class pagJuego extends StatefulWidget {
   @override
@@ -9,15 +18,29 @@ class pagJuego extends StatefulWidget {
 
 class _pagJuegoState extends State<pagJuego> {
 
+  int intRandom;
   int intPuntaje;
-  String strNivel;
-  //ctrAumentarNivel objCtrAumentarNivel = ctrAumentarNivel();
+  int intNivel;
+  ctrAumentarNivel objCtrAumentarNivel = ctrAumentarNivel.instancia;
+
+  // Función que se le envía a los botones para actualizar el widget del Nivel y el Puntaje
+  void fncActualizarInfoNivelActual(String strOpcionElegida){
+    intRandom = Random().nextInt(5);
+    fncFiltrarInfoNivelActual();
+    setState(() => intNivel = objCtrAumentarNivel.intNivelActual.value);
+    setState(() => intPuntaje = objCtrAumentarNivel.intPuntajeActual.value);
+  }
+
+  void fncFiltrarInfoNivelActual(){
+    objCtrAumentarNivel.objMdlCategoriaFiltro = objCtrAumentarNivel.lstMdlCategoria.where((categoria) => categoria.intNivel == objCtrAumentarNivel.intNivelActual.value).toList().first;
+    objCtrAumentarNivel.objMdlPreguntaFiltro = objCtrAumentarNivel.lstMdlPregunta.where((pregunta) => pregunta.intIdCategoria == objCtrAumentarNivel.objMdlCategoriaFiltro.intIdCategoria).toList()[intRandom];
+    objCtrAumentarNivel.lstMdlOpcionFiltro = objCtrAumentarNivel.lstMdlOpcion.where((opcion) => opcion.intIdPregunta == objCtrAumentarNivel.objMdlPreguntaFiltro.intIdPregunta).toList();
+  }
 
   @override
   void initState() {
     super.initState();
-    intPuntaje = 0;
-    strNivel = "1";
+    fncActualizarInfoNivelActual("0");
   }
 
   @override
@@ -33,33 +56,33 @@ class _pagJuegoState extends State<pagJuego> {
             Expanded(
               child: Column(
                 children: [
-                  //-----------------------HEADER---------------------------
+                  //-------------------PUNTAJE Y NIVEL------------------------
                   ListTile(
                     leading: Column(
                       children: [
-                        Icon(Icons.monetization_on_rounded, color: Colors.amber, size: 30.0,),
-                        Text(intPuntaje.toString(), style: TextStyle(color: Colors.green[300], fontSize: 20.0, fontStyle: FontStyle.italic))
+                        Icon(Icons.monetization_on_rounded, color: Colors.orange[300], size: 30.0,),
+                        Text(objCtrAumentarNivel.intPuntajeActual.value.toString(), style: TextStyle(color: Colors.green[300], fontSize: 20.0, fontStyle: FontStyle.italic))
                     ]),
                     trailing: Column(
                       children: [
                         Text('Nivel:', style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 20.0, fontStyle: FontStyle.italic)),
-                        Text(strNivel, style: TextStyle(color: Colors.green[300], fontSize: 20.0, fontStyle: FontStyle.italic)),
+                        Text(objCtrAumentarNivel.intNivelActual.value.toString(), style: TextStyle(color: Colors.green[300], fontSize: 20.0, fontStyle: FontStyle.italic))
                     ]),
                   ),
                   SizedBox(height: 70,),
 
                   //-----------------------PREGUNTA---------------------------
-                  Text('6÷2(1+2)+4', style: TextStyle(color: Colors.white, fontSize: 40.0, fontWeight: FontWeight.bold)),
+                  Text(objCtrAumentarNivel.objMdlPreguntaFiltro.strPregunta, style: TextStyle(color: Colors.white, fontSize: 40.0, fontWeight: FontWeight.bold)),
                   SizedBox(height: 80,),
 
                   //-----------------------OPCIONES---------------------------
-                  wdgOpcionesBoton('12', "pagJuego", Colors.blue, Colors.blue[200]),
+                  wdgOpcionesBoton(objCtrAumentarNivel.lstMdlOpcionFiltro[0].strOpcion, "pagJuego", Colors.blue, Colors.blue[200], fncActualizarInfoNivelActual),
                   SizedBox(height: 20,),
-                  wdgOpcionesBoton('5', "pagJuego", Colors.green, Colors.green[200]),
+                  wdgOpcionesBoton(objCtrAumentarNivel.lstMdlOpcionFiltro[1].strOpcion, "pagJuego", Colors.green, Colors.green[200], fncActualizarInfoNivelActual),
                   SizedBox(height: 20,),
-                  wdgOpcionesBoton('15', "pagJuego", Colors.orange, Colors.orange[200]),
+                  wdgOpcionesBoton(objCtrAumentarNivel.lstMdlOpcionFiltro[2].strOpcion, "pagJuego", Colors.orange, Colors.orange[200], fncActualizarInfoNivelActual),
                   SizedBox(height: 20,),
-                  wdgOpcionesBoton('13', "pagJuego", Colors.purple, Colors.purple[200]),
+                  wdgOpcionesBoton(objCtrAumentarNivel.lstMdlOpcionFiltro[3].strOpcion, "pagJuego", Colors.purple, Colors.purple[200], fncActualizarInfoNivelActual),
                   SizedBox(height: 80,),
 
                   //---------------------BOTÓN RETIRARSE------------------------
@@ -73,11 +96,19 @@ class _pagJuegoState extends State<pagJuego> {
                     child: ListTile(
                       onTap: (){
                         Navigator.pop(context);
+                        //TODO: poner el activity de ingresar nombre y guardar puntaje
                       },
                       contentPadding: EdgeInsets.only(top: 15, left: 0, bottom: 15, right: 10),
-                      title: Center(
-                        child: Text('RETIRARSE',style: TextStyle(color: Colors.white, fontSize: 30.0, fontWeight: FontWeight.bold),
-                        ),
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Center(
+                            child: Text('RETIRARSE',style: TextStyle(color: Colors.white, fontSize: 30.0, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          SizedBox(width: 40,),
+                          Icon(Icons.exit_to_app,color: Colors.white,size: 40,)
+                        ],
                       ),
                     ),
                   )

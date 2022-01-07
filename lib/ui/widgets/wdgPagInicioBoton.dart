@@ -1,6 +1,7 @@
 // import 'dart:html';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_concurso_app/controller/ctrAumentarNivel.dart';
 
 class wdgPagInicioBoton extends StatelessWidget {
 
@@ -10,8 +11,10 @@ class wdgPagInicioBoton extends StatelessWidget {
   Color clrColorBorde;
   Color clrColorFondo;
 
-
   wdgPagInicioBoton(this.icnIconoBoton, this.strTextoBoton, this.strProximaPagina, this.clrColorBorde, this.clrColorFondo);
+
+  ctrAumentarNivel objCtrAumentarNivel = ctrAumentarNivel.instancia;
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +28,10 @@ class wdgPagInicioBoton extends StatelessWidget {
       child: RaisedButton(
         onPressed: (){
           Navigator.of(context).pushNamed(strProximaPagina);
+          if (strTextoBoton == "Jugar"){
+            objCtrAumentarNivel.intNivelActual.value = 1;
+            objCtrAumentarNivel.intPuntajeActual.value = 0;
+          }
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         color: clrColorFondo,

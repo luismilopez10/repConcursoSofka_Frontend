@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_concurso_app/controller/ctrAumentarNivel.dart';
 
 class wdgOpcionesBoton extends StatelessWidget {
+
+  final ValueChanged<String> fncFuncion;
 
   String strTextoBoton;
   String strProximaPagina;
   Color clrColorBorde;
   Color clrColorFondo;
 
+  wdgOpcionesBoton(this.strTextoBoton, this.strProximaPagina, this.clrColorBorde, this.clrColorFondo, this.fncFuncion);
 
-  wdgOpcionesBoton(this.strTextoBoton, this.strProximaPagina, this.clrColorBorde, this.clrColorFondo);
+  ctrAumentarNivel objCtrAumentarNivel = ctrAumentarNivel.instancia;
+
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +26,9 @@ class wdgOpcionesBoton extends StatelessWidget {
       margin: EdgeInsets.only(top: 1.0),
       child: ListTile(
         onTap: () {
-          Navigator.pop(context);
-          Navigator.of(context).pushNamed("pagJuego");
-          //TODO: Aquí se debe hacer el condicionar para verificar que es la opción correcta y enviar a la página correspondiente
+          objCtrAumentarNivel.strOpcionElegida.value = strTextoBoton;
+          objCtrAumentarNivel.fncAumentarNivel();
+          fncFuncion("");
         },
         contentPadding: EdgeInsets.only(top: 5, left: 0, bottom: 5, right: 10),
         visualDensity: VisualDensity.compact,
