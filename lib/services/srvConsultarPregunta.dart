@@ -19,6 +19,7 @@ Future<String> fncConsultarPregunta() async{
     NewsJson.forEach((element){
       objCtrAumentarNivel.lstMdlPregunta.add(mdlPregunta.fromJson(element));
     });
+    print("Consulta de Preguntas Finalizada");
     return response.body;
   } else {
     throw Exception('Error de carga, verifica la conectividad a internet.');

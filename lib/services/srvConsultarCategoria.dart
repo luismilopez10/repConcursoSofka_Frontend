@@ -20,6 +20,7 @@ Future<String> fncConsultarCategoria() async{
     NewsJson.forEach((element){
       objCtrAumentarNivel.lstMdlCategoria.add(mdlCategoria.fromJson(element));
     });
+    print("Consulta de Categorías Finalizada");
     return response.body;
   } else {
     throw Exception('Error de carga, verifica la conectividad a internet.');

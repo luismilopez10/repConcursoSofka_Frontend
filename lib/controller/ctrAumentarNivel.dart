@@ -34,7 +34,7 @@ class ctrAumentarNivel{
     else if (ctrAumentarNivel.instancia.intNivelActual.value == 5 && ctrAumentarNivel.instancia.strOpcionElegida.value == ctrAumentarNivel.instancia.objMdlPreguntaFiltro.strRespuesta) {
       // Respuesta correcta y es la última ronda
       ctrAumentarNivel.instancia.intPuntajeActual.value += ctrAumentarNivel.instancia.objMdlCategoriaFiltro.intPremio;
-      Get.toNamed('pagFormGuardarPuntaje');
+      Get.offNamed('pagFormGuardarPuntaje');
       Get.snackbar("¡Ganaste!", '''
       ¡Que gran matemático! 
       Ingresa tu Nick para guardar tu puntaje.''');
@@ -43,7 +43,7 @@ class ctrAumentarNivel{
       // Respuesta incorrecta
       ctrAumentarNivel.instancia.intNivelActual.value = 1;
       ctrAumentarNivel.instancia.intPuntajeActual.value = 0;
-      Get.toNamed('pagInicio');
+      Get.offNamed('pagInicio');
       Get.snackbar("Respuesta Incorrecta", "No fuiste matemático =(");
     }
     //TODO consultar si la opción elegida es la correcta y si sí, subir el nivel

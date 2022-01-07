@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_concurso_app/controller/ctrAumentarNivel.dart';
 import 'package:flutter_concurso_app/controller/ctrGuardarPuntaje.dart';
 import 'package:get/get.dart';
 
@@ -16,6 +17,7 @@ class _pagFormGuardarPuntajeState extends State<pagFormGuardarPuntaje> {
 
   TextEditingController _nameController;
   ctrGuardarPuntaje objCtrGuardarPuntaje = ctrGuardarPuntaje.instancia;
+  ctrAumentarNivel objCtrAumentarNivel = ctrAumentarNivel.instancia;
 
   FocusNode myFocusNode;
 
@@ -56,7 +58,9 @@ class _pagFormGuardarPuntajeState extends State<pagFormGuardarPuntaje> {
             padding: EdgeInsets.all(8.0),
             child: Column(
               children: [
-                SizedBox(height: 250,),
+                SizedBox(height: 80,),
+                Text(r"$" + objCtrAumentarNivel.intPuntajeActual.value.toString(), style: TextStyle(color: Colors.green[200], fontSize: 60.0, fontWeight: FontWeight.bold)),
+                SizedBox(height: 80,),
 
                 //----------------------------NOMBRE----------------------------
                 TextFormField(
@@ -78,7 +82,7 @@ class _pagFormGuardarPuntajeState extends State<pagFormGuardarPuntaje> {
                   onChanged: (value) => objCtrGuardarPuntaje.strNombreJugador.value = value,
                   controller: _nameController,
                 ),
-                SizedBox(height: 270.0),
+                SizedBox(height: 280.0),
 
                 //---------------------BOTÓN "Guardar"----------------------
                 Container(

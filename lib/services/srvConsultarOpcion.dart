@@ -20,6 +20,7 @@ Future<String> fncConsultarOpcion() async{
     NewsJson.forEach((element){
       objCtrAumentarNivel.lstMdlOpcion.add(mdlOpcion.fromJson(element));
     });
+    print("Consulta de Opciones Finalizada");
     return response.body;
   } else {
     throw Exception('Error de carga, verifica la conectividad a internet.');

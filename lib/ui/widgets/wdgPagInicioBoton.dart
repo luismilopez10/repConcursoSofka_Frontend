@@ -26,12 +26,12 @@ class wdgPagInicioBoton extends StatelessWidget {
       ),
       margin: EdgeInsets.only(top: 1.0),
       child: RaisedButton(
-        onPressed: (){
-          Navigator.of(context).pushNamed(strProximaPagina);
+        onPressed: () {
           if (strTextoBoton == "Jugar"){
             objCtrAumentarNivel.intNivelActual.value = 1;
             objCtrAumentarNivel.intPuntajeActual.value = 0;
           }
+          Navigator.of(context).pushNamed(strProximaPagina);
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         color: clrColorFondo,
