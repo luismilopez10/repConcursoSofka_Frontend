@@ -7,6 +7,7 @@ class pagInicio extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         padding: EdgeInsets.only(top: 0.0, left: 10.0, bottom: 0.0, right: 10.0),
         decoration: BoxDecoration(

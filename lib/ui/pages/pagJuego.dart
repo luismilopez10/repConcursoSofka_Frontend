@@ -40,6 +40,7 @@ class _pagJuegoState extends State<pagJuego> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(image: AssetImage("assets/backgroundImage.jpg"), fit: BoxFit.cover),

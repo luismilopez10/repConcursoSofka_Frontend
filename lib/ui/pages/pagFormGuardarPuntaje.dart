@@ -5,8 +5,6 @@ import 'package:flutter_concurso_app/controller/ctrAumentarNivel.dart';
 import 'package:flutter_concurso_app/controller/ctrGuardarPuntaje.dart';
 import 'package:get/get.dart';
 
-GlobalKey<FormState> formContactKey = GlobalKey<FormState>();
-GlobalKey<ScaffoldState> formPageKey = GlobalKey<ScaffoldState>();
 
 class pagFormGuardarPuntaje extends StatefulWidget {
   @override
@@ -14,6 +12,9 @@ class pagFormGuardarPuntaje extends StatefulWidget {
 }
 
 class _pagFormGuardarPuntajeState extends State<pagFormGuardarPuntaje> {
+
+  GlobalKey<FormState> formContactKey = GlobalKey<FormState>();
+  GlobalKey<ScaffoldState> formPageKey = GlobalKey<ScaffoldState>();
 
   TextEditingController _nameController;
   ctrGuardarPuntaje objCtrGuardarPuntaje = ctrGuardarPuntaje.instancia;
@@ -41,6 +42,7 @@ class _pagFormGuardarPuntajeState extends State<pagFormGuardarPuntaje> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       key: formPageKey,
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -68,7 +70,7 @@ class _pagFormGuardarPuntajeState extends State<pagFormGuardarPuntaje> {
                   focusNode: myFocusNode,
                   inputFormatters: [
                     FilteringTextInputFormatter.allow(RegExp("[A-Z a-z]")),
-                    LengthLimitingTextInputFormatter(4),
+                    LengthLimitingTextInputFormatter(3),
                   ],
                   validator: (value) => validate(value, "Nick"),
                   decoration: InputDecoration(

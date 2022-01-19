@@ -8,7 +8,7 @@ Future<String> fncConsultarJugador() async{
   var response;
 
   if (await srvInternetConnectionCheck()){
-    response = await http.get(Uri.parse("https://pryconcursowebapi.azurewebsites.net/api/Jugador/fncConsultarJugador"));
+    response = await http.get(Uri.parse("https://pryconcursowebapi.azurewebsites.net/api/Jugador/fncConsultarJugadorSumDescendiente"));
   }
 
   // https://esflutter.dev/docs/cookbook/networking/fetch-data
